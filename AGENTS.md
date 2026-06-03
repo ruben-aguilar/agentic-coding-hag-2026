@@ -7,7 +7,7 @@ This repository is a static GitHub Pages presentation library. The intended work
 - Read `DESIGN.md` before creating or restyling slides.
 - Use `shared/deck.css` and `shared/deck.js` for the presentation system.
 - Keep deck content in `presentations/<slug>/index.html`.
-- Keep the root `index.html` as the presentation directory.
+- Keep the root `index.html` as the presentation directory with a separate human instructions section.
 - Do not create `CONTEXT.md`; local project notes should not be committed.
 
 ## Creating A Presentation
@@ -56,7 +56,14 @@ Each deck should include:
 
 ## Homepage Rules
 
-The root `index.html` is the directory. For each deck card, include:
+The root `index.html` has two separate areas:
+
+- A human-facing instructions section explaining that users should open the repo with an agent and provide topic, audience, context, length, event/date, and constraints.
+- A presentation directory containing only slide deck cards.
+
+Do not put instructions in the deck list. The deck list is only for presentations.
+
+For each deck card, include:
 
 - Event or category kicker.
 - Deck title.
@@ -64,7 +71,7 @@ The root `index.html` is the directory. For each deck card, include:
 - Metadata chips such as slide count, topic, and audience.
 - Link to `presentations/<slug>/`.
 
-Keep the "Create a new presentation" guide card visible so future users know how to use the repo with an agent.
+Keep the human instructions section visible above the deck directory so future users know how to use the repo with an agent.
 
 ## Verification Commands
 
