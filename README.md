@@ -4,7 +4,7 @@ Static GitHub Pages site for Homeaglow presentation decks.
 
 ## Structure
 
-- `/` is the homepage with human creation instructions and the presentation directory.
+- `/` is the homepage with a human creation-instructions popup and the presentation directory.
 - `presentations/<slug>/` contains each individual deck.
 - `shared/deck.css` and `shared/deck.js` provide the shared presentation system.
 - `DESIGN.md` documents the visual language and rules for new decks.
@@ -19,7 +19,7 @@ Static GitHub Pages site for Homeaglow presentation decks.
 
 Open this repository with an agent and provide the topic, audience, source context, desired length, and event/date. Ask it to create a new presentation following `AGENTS.md` and `DESIGN.md`.
 
-The homepage includes a separate human-facing "Create a new presentation" section above the deck directory. It links to `AGENTS.md` for the agent-specific workflow.
+The homepage includes a top "Create a presentation" button that opens human-readable instructions. Agent-specific workflow details live in `AGENTS.md` for agents working inside the repo.
 
 ## Local Preview
 

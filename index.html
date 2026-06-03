@@ -18,19 +18,14 @@
   <main class="directory-shell">
     <div class="directory-inner">
       <header class="directory-header">
-        <div class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="#1B1A1A"><path d="M12 1c.6 6 5.4 10.8 11.4 11.4C17.4 12.6 12.6 17.4 12 23c-.6-5.6-5.4-10.4-11.4-11C6.6 11.4 11.4 6 12 1z"/></svg></span> Homeaglow Presentations</div>
+        <div class="directory-nav">
+          <div class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="#1B1A1A"><path d="M12 1c.6 6 5.4 10.8 11.4 11.4C17.4 12.6 12.6 17.4 12 23c-.6-5.6-5.4-10.4-11.4-11C6.6 11.4 11.4 6 12 1z"/></svg></span> Homeaglow Presentations</div>
+          <button class="help-button" type="button" data-open-instructions>Create a presentation</button>
+        </div>
         <div class="kicker">directory</div>
         <h1 class="title">Presentation<br><span class="hl">library.</span></h1>
         <p class="lede">A shared visual system for offsite decks, engineering playbooks, and internal talks.</p>
       </header>
-      <section class="human-instructions" aria-label="Create a presentation">
-        <div>
-          <div class="kicker">instructions</div>
-          <h2>Create a new presentation</h2>
-          <p>Open this repo with your agent and ask it to create a presentation. Give it the topic, audience, source context, desired length, event/date, and any constraints. The agent will follow the repo instructions and shared design system.</p>
-        </div>
-        <a class="instruction-link" href="AGENTS.md">Agent instructions</a>
-      </section>
       <section class="directory-grid" aria-label="Presentations">
         <a class="deck-card" href="presentations/agentic-coding-hag-2026/">
           <div class="kicker">Homeaglow Offsite · June 2026</div>
@@ -41,5 +36,37 @@
       </section>
     </div>
   </main>
+  <div class="modal-backdrop" data-instructions-modal hidden>
+    <section class="instructions-modal" role="dialog" aria-modal="true" aria-labelledby="instructions-title">
+      <button class="modal-close" type="button" data-close-instructions aria-label="Close instructions">×</button>
+      <div class="kicker">instructions</div>
+      <h2 id="instructions-title">Create a new presentation</h2>
+      <ol>
+        <li>Open this repository with your coding agent.</li>
+        <li>Tell it the presentation topic, audience, source context, desired length, event/date, and constraints.</li>
+        <li>Ask it to create a new deck using the existing presentation style.</li>
+        <li>Review the local preview, leave comments, and ask the agent to iterate.</li>
+        <li>When it looks good, ask the agent to commit, push, and verify the published page.</li>
+      </ol>
+      <p>The agent already has internal repo instructions for creating the deck, adding it to the homepage, and preserving the shared design system.</p>
+    </section>
+  </div>
+  <script>
+    const modal = document.querySelector('[data-instructions-modal]');
+    const openInstructions = document.querySelector('[data-open-instructions]');
+    const closeInstructions = document.querySelector('[data-close-instructions]');
+    function setInstructionsOpen(open){
+      modal.hidden = !open;
+      document.body.classList.toggle('modal-open', open);
+    }
+    openInstructions.addEventListener('click', () => setInstructionsOpen(true));
+    closeInstructions.addEventListener('click', () => setInstructionsOpen(false));
+    modal.addEventListener('click', event => {
+      if(event.target === modal) setInstructionsOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+      if(event.key === 'Escape' && !modal.hidden) setInstructionsOpen(false);
+    });
+  </script>
 </body>
 </html>
