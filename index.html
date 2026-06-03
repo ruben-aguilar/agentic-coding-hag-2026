@@ -89,6 +89,19 @@
   .node.ghost{ background:#fff; color:var(--muted); border:1.5px dashed var(--line-2); box-shadow:none; }
   .arrow{ color:var(--ink); font-size:24px; font-family:var(--mono); font-weight:500; opacity:.4; }
   .col{ display:flex; flex-direction:column; gap:14px; }
+  .worktree-map{ justify-content:center; gap:22px; max-width:900px; margin:34px auto 0; padding:24px 28px; border:1px solid var(--line); border-radius:22px; background:rgba(255,255,255,.66); box-shadow:var(--shadow-sm); }
+  .worktree-map .node{ min-width:170px; text-align:left; }
+  .worktree-map .arrow{ opacity:.32; font-size:28px; }
+  .agent-stack{ display:grid; gap:12px; min-width:min(480px,100%); }
+  .agent-card{ display:grid; grid-template-columns:44px 1fr auto; align-items:center; gap:14px; min-height:68px; padding:13px 15px; border-radius:18px; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-sm); }
+  .agent-card svg{ width:22px; height:22px; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+  .agent-ico{ width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:var(--yellow-wash); color:var(--ink); }
+  .agent-card h4{ font-size:17px; line-height:1.1; margin:0; font-weight:800; letter-spacing:-.01em; }
+  .agent-card p{ margin-top:4px; color:var(--muted); font-size:12px; line-height:1.35; }
+  .state{ font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; padding:7px 10px; border-radius:100px; white-space:nowrap; }
+  .state.grill{ background:var(--paper-2); color:var(--ink); border:1px solid var(--line-2); }
+  .state.build{ background:var(--ink); color:#fff; }
+  .state.qa{ background:var(--yellow); color:var(--ink); }
 
   .plan-map{ display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch; margin-top:38px; max-width:1040px; }
   .plan-stage{ border-radius:20px; padding:28px; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-sm); position:relative; min-height:260px; }
@@ -192,6 +205,7 @@
     .tl-row{ grid-template-columns:1fr 1fr; row-gap:84px; padding-top:78px; } .rail{ display:none; } .pill-sec{ display:none; }
     .stepper{ flex-wrap:wrap; gap:24px; } .stp{ flex:1 1 40%; } .track{ display:none; }
     .logos{ grid-template-columns:repeat(2,1fr); }
+    .worktree-map{ padding:18px; } .agent-card{ grid-template-columns:44px 1fr; } .state{ grid-column:2; justify-self:start; }
   }
   @media (prefers-reduced-motion:reduce){ .spark,.arc,.node-p{ animation:none; } }
 </style>
@@ -529,13 +543,24 @@
     <div class="wrap">
       <div class="kicker" data-r="1">extension · conductor + worktrees</div>
       <h2 class="head" data-r="2">One engineer,<br><span class="hl">many agents.</span></h2>
-      <p class="lede" data-r="3">Parallelization is not a final stage. It is an accelerator once the core loop is working and the work can be split into clean vertical slices.</p>
-      <div class="flow" data-r="4">
-        <div class="node" style="min-width:155px">Conductor<small>you orchestrate</small></div><span class="arrow">→</span>
-        <div class="col">
-          <div class="node dark">Worktree · feature A</div>
-          <div class="node dark">Worktree · feature B</div>
-          <div class="node dark">Worktree · bugfix C</div>
+      <div class="flow worktree-map" data-r="4">
+        <div class="node">Conductor<small>assign, monitor, unblock</small></div><span class="arrow">→</span>
+        <div class="agent-stack">
+          <div class="agent-card">
+            <div class="agent-ico"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></div>
+            <div><h4>Worktree · feature A</h4><p>Agent is interrogating the plan before touching code.</p></div>
+            <span class="state grill">grilling</span>
+          </div>
+          <div class="agent-card">
+            <div class="agent-ico"><svg viewBox="0 0 24 24"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 4-4 16"/></svg></div>
+            <div><h4>Worktree · feature B</h4><p>Agent is building a clean vertical slice.</p></div>
+            <span class="state build">implementing</span>
+          </div>
+          <div class="agent-card">
+            <div class="agent-ico"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <div><h4>Worktree · bugfix C</h4><p>Changes are ready for human intent and code review.</p></div>
+            <span class="state qa">ready for QA</span>
+          </div>
         </div>
       </div>
       <div class="grid g3" style="margin-top:30px">
@@ -543,7 +568,6 @@
         <div class="cardx" data-r="6"><div class="tag">git worktrees</div><h3>Isolated by design</h3><p>Each agent gets its own checkout of the same repo. Parallel branches, zero collisions, one shared history.</p></div>
         <div class="cardx dark" data-r="7"><div class="tag">the payoff</div><h3>Throughput without chaos</h3><p>Clean slices + isolated worktrees + tight feedback loops = scale work, not risk.</p></div>
       </div>
-      <p class="foot" data-r="7"><b>Direct, don't type.</b> Humans own intent and verification — agents do the rest.</p>
     </div>
   </section>
 
